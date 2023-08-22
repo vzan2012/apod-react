@@ -1,8 +1,17 @@
-# React + Vite
+# Astronomy - Picture of the Day (APOD)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This ReactJS application displays the **'Picture of the Day'**. The datas are fetched from the NASA API. You can register in the NASA API website to get the key and use it in the scripts file.
 
-Currently, two official plugins are available:
+Libraries used in this application are,
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Vite
+- Bootstrap
+- million
+
+### Author
+
+Sitharaman Deepak Guptha
+
+### Version
+
+1.0.0
