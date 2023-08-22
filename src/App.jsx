@@ -5,6 +5,7 @@ import FooterBlock from "./components/Layout/Footer/FooterBlock";
 import HeaderBlock from "./components/Layout/Header/HeaderBlock";
 import PictureDayCardBlock from "./components/UI/PictureDayCard/PictureDayCardBlock";
 import InputFormBlock from "./components/Apod/InputForm/InputFormBlock";
+import LoaderBlock from "./components/UI/Loader/LoaderBlock";
 
 const App = () => {
   const [pictureDayData, setPictureDayData] = useState({});
@@ -17,7 +18,13 @@ const App = () => {
       <HeaderBlock />
       <InputFormBlock sendDataToParent={fetchPictureDayData} />
 
-      <PictureDayCardBlock dataResponse={pictureDayData} />
+      {/* Conditional Render - show loader if the data is empty */}
+      {Object.keys(pictureDayData).length !== 0 ? (
+        <PictureDayCardBlock dataResponse={pictureDayData} />
+      ) : (
+        <LoaderBlock />
+      )}
+
       <FooterBlock />
     </>
   );
