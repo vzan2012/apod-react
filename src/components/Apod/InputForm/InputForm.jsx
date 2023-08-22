@@ -12,13 +12,12 @@ const fetchURL =
       }`
     : "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
 
-const InputForm = () => {
+const InputForm = ({ sendDataToParent }) => {
   const controller = new AbortController();
   const dateFieldRef = useRef("");
   const maxDateLimit = new Date().toISOString().split("T")[0];
 
   const [showDataBtnStatus, setShowDataBtnStatus] = useState(false);
-  const [photoData, setPhotoData] = useState({});
 
   // Fetch API Data from URL
   const fetchAPIData = (givenURL, controller) => {
@@ -26,12 +25,7 @@ const InputForm = () => {
       .get(givenURL, {
         signal: controller.signal,
       })
-      .then((response) =>
-        setPhotoData((prevState) => {
-          console.log(prevState);
-          return { ...prevState, ...response.data };
-        })
-      );
+      .then((response) => sendDataToParent(response.data));
   };
 
   useEffect(() => {
@@ -46,10 +40,7 @@ const InputForm = () => {
   const onShowData = async () => {
     // Return the data
     const updatedAPIURL = `${fetchURL}&date=${dateFieldRef.current.value}`;
-    console.log(updatedAPIURL);
     fetchAPIData(updatedAPIURL, controller);
-
-    console.log(photoData);
   };
 
   /**
