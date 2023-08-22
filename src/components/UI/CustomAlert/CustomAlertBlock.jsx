@@ -1,3 +1,4 @@
+import { block } from "million";
 import { forwardRef } from "react";
 import { Alert } from "react-bootstrap";
 
@@ -10,4 +11,6 @@ const CustomAlert = (props, ref) => {
   );
 };
 
-export default forwardRef(CustomAlert);
+const CustomAlertBlock = forwardRef(block(CustomAlert));
+
+export default CustomAlertBlock;

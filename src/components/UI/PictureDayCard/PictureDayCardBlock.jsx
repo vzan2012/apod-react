@@ -1,3 +1,4 @@
+import { block } from "million";
 import { Row, Col, Container } from "react-bootstrap";
 
 const PictureDayCard = ({ dataResponse }) => {
@@ -25,4 +26,6 @@ const PictureDayCard = ({ dataResponse }) => {
   );
 };
 
-export default PictureDayCard;
+const PictureDayCardBlock = block(PictureDayCard);
+
+export default PictureDayCardBlock;

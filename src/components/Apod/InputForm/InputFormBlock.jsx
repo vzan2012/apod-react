@@ -1,9 +1,10 @@
 // import React from 'react'
 
 import { Button, Container, Row, Col } from "react-bootstrap";
-import DatePicker from "../../UI/DatePicker/DatePicker";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import DatePickerBlock from "../../UI/DatePicker/DatePickerBlock";
+import { block } from "million";
 
 const fetchURL =
   import.meta.env.VITE_API_KEY !== ""
@@ -71,7 +72,7 @@ const InputForm = ({ sendDataToParent }) => {
         <Col xs={12} lg={12}>
           <Row xs={12}>
             <Col xs={12} lg={7}>
-              <DatePicker
+              <DatePickerBlock
                 ref={dateFieldRef}
                 onChange={onChangeDatePicker}
                 max={maxDateLimit}
@@ -104,4 +105,6 @@ const InputForm = ({ sendDataToParent }) => {
   );
 };
 
-export default InputForm;
+const InputFormBlock = block(InputForm);
+
+export default InputFormBlock;

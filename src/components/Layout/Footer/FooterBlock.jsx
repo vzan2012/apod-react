@@ -1,3 +1,4 @@
+import { block } from "million";
 import { Container, Navbar } from "react-bootstrap";
 
 const Footer = () => {
@@ -13,4 +14,6 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+const FooterBlock = block(Footer);
+
+export default FooterBlock;

@@ -1,3 +1,4 @@
+import { block } from "million";
 import { Container, Navbar } from "react-bootstrap";
 
 const Header = () => {
@@ -11,5 +12,6 @@ const Header = () => {
     </Navbar>
   );
 };
+const HeaderBlock = block(Header);
 
-export default Header;
+export default HeaderBlock;

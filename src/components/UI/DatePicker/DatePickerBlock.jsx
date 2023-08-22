@@ -1,3 +1,4 @@
+import { block } from "million";
 import { forwardRef } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
@@ -25,5 +26,5 @@ const DatePicker = ({ onChange, max }, ref) => {
     </Form>
   );
 };
-
-export default forwardRef(DatePicker);
+const DatePickerBlock = forwardRef(block(DatePicker));
+export default DatePickerBlock;

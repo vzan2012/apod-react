@@ -1,10 +1,10 @@
 import "./App.scss";
 
-import Footer from "./components/Layout/Footer/Footer";
-import Header from "./components/Layout/Header/Header";
-import InputForm from "./components/Apod/InputForm/InputForm";
-import PictureDayCard from "./components/UI/PictureDayCard/PictureDayCard";
 import { useState } from "react";
+import FooterBlock from "./components/Layout/Footer/FooterBlock";
+import HeaderBlock from "./components/Layout/Header/HeaderBlock";
+import PictureDayCardBlock from "./components/UI/PictureDayCard/PictureDayCardBlock";
+import InputFormBlock from "./components/Apod/InputForm/InputFormBlock";
 
 const App = () => {
   const [pictureDayData, setPictureDayData] = useState({});
@@ -14,11 +14,11 @@ const App = () => {
 
   return (
     <>
-      <Header />
-      <InputForm sendDataToParent={fetchPictureDayData} />
+      <HeaderBlock />
+      <InputFormBlock sendDataToParent={fetchPictureDayData} />
 
-      <PictureDayCard dataResponse={pictureDayData} />
-      <Footer />
+      <PictureDayCardBlock dataResponse={pictureDayData} />
+      <FooterBlock />
     </>
   );
 };
