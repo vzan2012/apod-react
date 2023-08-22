@@ -16,6 +16,7 @@ const App = () => {
     <>
       <Header />
       <InputForm sendDataToParent={fetchPictureDayData} />
+
       <PictureDayCard dataResponse={pictureDayData} />
       <Footer />
     </>
