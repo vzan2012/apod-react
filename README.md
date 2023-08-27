@@ -8,6 +8,10 @@ Libraries used in this application are,
 - Bootstrap
 - million
 
+### Screenshots
+![image](https://github.com/vzan2012/apod-react/assets/13725828/94024e65-72aa-4201-beeb-731d49139f55)
+
+
 ### Author
 
 Sitharaman Deepak Guptha
