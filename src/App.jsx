@@ -1,11 +1,17 @@
 import "./App.scss";
 
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import FooterBlock from "./components/Layout/Footer/FooterBlock";
 import HeaderBlock from "./components/Layout/Header/HeaderBlock";
-import PictureDayCardBlock from "./components/UI/PictureDayCard/PictureDayCardBlock";
-import InputFormBlock from "./components/Apod/InputForm/InputFormBlock";
 import LoaderBlock from "./components/UI/Loader/LoaderBlock";
+
+const InputFormBlock = lazy(() =>
+  import("./components/Apod/InputForm/InputFormBlock")
+);
+
+const PictureDayCardBlock = lazy(() =>
+  import("./components/UI/PictureDayCard/PictureDayCardBlock")
+);
 
 const App = () => {
   const [pictureDayData, setPictureDayData] = useState({});
@@ -16,11 +22,16 @@ const App = () => {
   return (
     <>
       <HeaderBlock />
-      <InputFormBlock sendDataToParent={fetchPictureDayData} />
+      {/* DatePicker - Form Input  */}
+      <Suspense fallback={<LoaderBlock />}>
+        <InputFormBlock sendDataToParent={fetchPictureDayData} />
+      </Suspense>
 
       {/* Conditional Render - show loader if the data is empty */}
       {Object.keys(pictureDayData).length !== 0 ? (
-        <PictureDayCardBlock dataResponse={pictureDayData} />
+        <Suspense fallback={<LoaderBlock />}>
+          <PictureDayCardBlock dataResponse={pictureDayData} />
+        </Suspense>
       ) : (
         <LoaderBlock />
       )}

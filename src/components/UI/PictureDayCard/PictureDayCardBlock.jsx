@@ -16,7 +16,12 @@ const PictureDayCard = ({ dataResponse }) => {
           </span>
         </Col>
         <Col xs={12} className="media-section mb-3">
-          <img src={url} title={title} className="img-fluid d-img" />
+          <img
+            src={url}
+            title={title}
+            className="img-fluid d-img"
+            loading="lazy"
+          />
         </Col>
         <Col xs={12} className="explanation mb-3">
           <p>{explanation}</p>
