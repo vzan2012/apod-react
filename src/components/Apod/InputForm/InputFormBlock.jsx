@@ -1,11 +1,10 @@
-// import React from 'react'
-
 import { Button, Container, Row, Col } from "react-bootstrap";
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import { useRef, useState } from "react";
+
 import DatePickerBlock from "../../UI/DatePicker/DatePickerBlock";
-// import { block } from "million";
 import CustomAlertBlock from "../../UI/CustomAlert/CustomAlertBlock";
+import { useQuery } from "@tanstack/react-query";
+import { fetchAPIData } from "../../../util/http";
 
 const fetchURL =
   import.meta.env.VITE_API_KEY !== ""
@@ -20,39 +19,26 @@ const InputForm = ({ sendDataToParent }) => {
   const maxDateLimit = new Date().toISOString().split("T")[0];
 
   const [showDataBtnStatus, setShowDataBtnStatus] = useState(false);
-  const [errorStatus, setErrorStatus] = useState(false);
-  const [errorData, setErrorData] = useState({});
-
-  // Fetch API Data from URL
-  const fetchAPIData = (givenURL, controller) => {
-    axios
-      .get(givenURL, {
-        signal: controller.signal,
-      })
-      .then((response) => sendDataToParent(response.data))
-      .catch((error) => {
-        setErrorStatus(true);
-        setErrorData((prevState) => ({
-          ...prevState,
-          ...error,
-          variant: "danger",
-        }));
-      });
-  };
-
-  useEffect(() => {
-    fetchAPIData(fetchURL, controller);
-
-    return () => {};
-  }, []);
-
+  const { isError, error } = useQuery({
+    queryKey: ["apiData"],
+    queryFn: () =>
+      fetchAPIData({
+        fetchURL,
+        controller: controller.signal,
+        sendDataToParent,
+      }),
+  });
   /**
    * Show Data Handler
    */
   const onShowData = async () => {
     // Return the data
     const updatedAPIURL = `${fetchURL}&date=${dateFieldRef.current.value}`;
-    fetchAPIData(updatedAPIURL, controller);
+    fetchAPIData({
+      fetchURL: updatedAPIURL,
+      controller: controller.signal,
+      sendDataToParent,
+    });
   };
 
   /**
@@ -116,10 +102,10 @@ const InputForm = ({ sendDataToParent }) => {
       </Container>
 
       {/* Show ErrorStatus via Custom Alert Component */}
-      {errorStatus && (
-        <CustomAlertBlock key={errorData.variant} variant={errorData.variant}>
+      {isError && (
+        <CustomAlertBlock ckey="danger" variant="danger">
           <strong>Error: </strong>
-          {errorData.message} - {errorData.response.data.error.message}
+          {error.message}
         </CustomAlertBlock>
       )}
     </>

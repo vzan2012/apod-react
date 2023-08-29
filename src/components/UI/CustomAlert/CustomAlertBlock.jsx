@@ -3,13 +3,13 @@ import { forwardRef } from "react";
 import { Alert, Container, Row } from "react-bootstrap";
 
 const CustomAlert = (props, ref) => {
-  const { key, variant, children } = props;
+  const { ckey, variant, children } = props;
   return (
     <Container className="mt-3 mb-3">
       <Row xs={12}>
         <Alert
           ref={ref}
-          key={key}
+          key={ckey}
           variant={variant}
           style={{ margin: "0 auto" }}
         >
