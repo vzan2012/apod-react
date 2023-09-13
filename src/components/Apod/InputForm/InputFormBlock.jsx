@@ -5,6 +5,7 @@ import DatePickerBlock from "../../UI/DatePicker/DatePickerBlock";
 import CustomAlertBlock from "../../UI/CustomAlert/CustomAlertBlock";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAPIData } from "../../../util/http";
+import { block } from "million";
 
 const fetchURL =
   import.meta.env.VITE_API_KEY !== ""
@@ -14,6 +15,7 @@ const fetchURL =
     : "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
 
 const InputForm = ({ sendDataToParent }) => {
+  let errorContent;
   const controller = new AbortController();
   const dateFieldRef = useRef("");
   const maxDateLimit = new Date().toISOString().split("T")[0];
@@ -63,6 +65,16 @@ const InputForm = ({ sendDataToParent }) => {
       setShowDataBtnStatus(true);
     }
   };
+
+  // Show Error Content
+  if (isError) {
+    errorContent = (
+      <CustomAlertBlock ckey="danger" variant="danger">
+        <strong>Error: </strong>
+        {error.message}
+      </CustomAlertBlock>
+    );
+  }
   return (
     <>
       <Container className="mt-3 mb-3">
@@ -102,17 +114,11 @@ const InputForm = ({ sendDataToParent }) => {
       </Container>
 
       {/* Show ErrorStatus via Custom Alert Component */}
-      {isError && (
-        <CustomAlertBlock ckey="danger" variant="danger">
-          <strong>Error: </strong>
-          {error.message}
-        </CustomAlertBlock>
-      )}
+      {errorContent}
     </>
   );
 };
 
-// const InputFormBlock = block(InputForm);
-const InputFormBlock = InputForm;
+const InputFormBlock = block(InputForm);
 
 export default InputFormBlock;

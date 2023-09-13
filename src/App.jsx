@@ -5,6 +5,7 @@ import FooterBlock from "./components/Layout/Footer/FooterBlock";
 import HeaderBlock from "./components/Layout/Header/HeaderBlock";
 import LoaderBlock from "./components/UI/Loader/LoaderBlock";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { block } from "million";
 
 const InputFormBlock = lazy(() =>
   import("./components/Apod/InputForm/InputFormBlock")
@@ -16,11 +17,22 @@ const PictureDayCardBlock = lazy(() =>
 
 const queryClient = new QueryClient();
 
-const App = () => {
+const AppBlock = () => {
+  let blockContent;
   const [pictureDayData, setPictureDayData] = useState({});
   const fetchPictureDayData = (data) => {
     setPictureDayData((prevState) => ({ ...prevState, ...data }));
   };
+
+  if (Object.keys(pictureDayData).length !== 0) {
+    blockContent = (
+      <Suspense fallback={<LoaderBlock />}>
+        <PictureDayCardBlock dataResponse={pictureDayData} />
+      </Suspense>
+    );
+  } else {
+    blockContent = <LoaderBlock />;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -31,17 +43,13 @@ const App = () => {
       </Suspense>
 
       {/* Conditional Render - show loader if the data is empty */}
-      {Object.keys(pictureDayData).length !== 0 ? (
-        <Suspense fallback={<LoaderBlock />}>
-          <PictureDayCardBlock dataResponse={pictureDayData} />
-        </Suspense>
-      ) : (
-        <LoaderBlock />
-      )}
+      {blockContent}
 
       <FooterBlock />
     </QueryClientProvider>
   );
 };
+
+const App = block(AppBlock);
 
 export default App;
